@@ -3,6 +3,7 @@
 import React from 'react';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
+import Image from 'next/image';
 
 const items: MenuProps['items'] = [
     {
@@ -37,9 +38,9 @@ const items: MenuProps['items'] = [
 const Header = () => {
     
   return (
-    <header className='col-span-2 flex justify-end-safe gap-15 bg-red-500 h-[128px] w-full p-5 items-center'>
-        <img src="/feedback.svg" alt="feedback" />
-        <img src="/alert.svg" alt="alert" />
+    <header className='col-span-2 flex justify-end-safe gap-15 bg-[#3A3C40] max-h-[128px] w-full p-5 items-center'>
+        <Image src="/feedback.svg" alt="feedback" width={32} height={32} className=' aspect-square' />
+        <Image src="/alert.svg" alt="alert" width={32} height={32} className=' aspect-square' />
           <Dropdown menu={{ items }} trigger={['click']}>
               <a onClick={(e) => e.preventDefault()}>
                   <Space>
