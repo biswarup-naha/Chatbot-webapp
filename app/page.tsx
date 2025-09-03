@@ -1,8 +1,6 @@
 import Chatsection from "@/ui/chatsection";
 import Header from "@/ui/header";
 import SideBar from "@/ui/sidebar";
-import { Button } from "antd";
-import Image from "next/image";
 
 export default function Home() {
   return (
