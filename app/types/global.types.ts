@@ -6,3 +6,9 @@ type Message = {
     time: string
     isLoading: boolean
 }
+
+type User = {
+    name: string
+    email: string
+    password: string
+}

@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import Chatcard from './chatcard';
 import Image from 'next/image';
 import { dateParser } from "@biswarup598/date-parser";
+import { GoogleGenAI } from '@google/genai';
+
 
 const Chatsection = () => {
   const [start, setStart] = useState(false);
@@ -15,9 +17,15 @@ const Chatsection = () => {
     setMessages([...messages, newMessage]);
   }
 
+  // const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+
+  function send() {
+    
+  }
+
 
   return (
-    <main className='box-border col-span-2 row-span-2 bg-[#25272B] h-full px-52 text-white'>
+    <main className='box-border bg-[#25272B] h-full px-52 text-white'>
       <div className='mt-40 flex justify-end items-center flex-col'>
         {!start ?
           <>

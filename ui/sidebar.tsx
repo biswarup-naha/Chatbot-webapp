@@ -1,11 +1,10 @@
 "use client";
 
-import React from 'react'
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import React, { useState } from 'react'
+import { AppstoreOutlined, MailOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { ConfigProvider, Menu, } from 'antd';
+import { Button, ConfigProvider, Menu, } from 'antd';
 import Image from 'next/image';
-import Upgrade from './upgrade';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -14,12 +13,12 @@ export function BotIcon() {
 }
 
 const items: MenuItem[] = [
-  {
-    key: 'sub0',
-    label: '',
-    icon: <BotIcon />,
-    className: 'p-[48px]'
-  },
+    // {
+    //   key: 'sub0',
+    //   label: '',
+    //   icon: <BotIcon />,
+    //   className: 'flex justify-center items-center'
+    // },
   {
     key: 'sub1',
     label: 'Chat',
@@ -80,6 +79,12 @@ const SideBar = () => {
     console.log('click ', e);
   }
 
+  const [collapsed, setCollapsed] = useState(false);
+
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed);
+  };
+
   return (
     // <aside className="row-span-3 col-start-1 flex h-full flex-col px-3 py-4 md:px-2 bg-blue-400">
     //   <Link
@@ -106,6 +111,8 @@ const SideBar = () => {
         token: {
           colorBgContainer: '#3a3c40', 
           colorText: "white",
+          padding: 0,
+          margin: 0
         },
         components: {
           Menu: {
@@ -118,14 +125,23 @@ const SideBar = () => {
 
       }}
     >
-      <Menu
-        className="row-span-3 col-start-1 flex h-full flex-col px-3 py-4 md:px-2 w-[256px]"
-        onClick={onClick}
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
-        mode="inline"
-        items={items}
-      />
+      <div className={`flex flex-col bg-[#3a3c40] h-full ${collapsed ? '' : 'w-[256px]'} `}>
+        <div className="flex justify-end transition-all duration-300 ease-in-out w-full">
+          <Button type="primary" style={{ backgroundColor: '#a7a0f8' }} className='rounded-[15px] flex justify-center items-center h-12 w-12' onClick={toggleCollapsed}>
+            <Image src="side-bot.svg" height={28} width={24} alt='bot-logo' />
+          </Button>
+        </div>
+        <Menu
+          className='flex h-full w-[258px] flex-col border-e-0'
+          onClick={onClick}
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['sub1']}
+          mode="inline"
+          inlineCollapsed={collapsed}
+          items={items}
+        />
+      </div>
+      
     </ConfigProvider>
 
   )
