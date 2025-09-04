@@ -1,3 +1,6 @@
+declare module '@biswarup598/date-parser' {
+    const dateParser: any; // or define actual types if you know them
+}
 
 type Message = {
     id?: number
@@ -12,3 +15,4 @@ type User = {
     email: string
     password: string
 }
+
