@@ -4,25 +4,28 @@ import React, { useState } from 'react'
 import Chatcard from './chatcard';
 import Image from 'next/image';
 import { dateParser } from "@biswarup598/date-parser";
-import { GoogleGenAI } from '@google/genai';
+import { chat } from '../app/actions/server-actions';
 
 
 const Chatsection = () => {
   const [start, setStart] = useState(false);
   const [messages, setMessages] = useState<Message[]>([{ id: 1, type: 'bot', text: 'Hi! How can I help you?', time: dateParser(Date.now())[1], isLoading: false }]);
+  const [input, setInput] = useState<string>("");
 
   const sendMsg = () => {
     setStart(true);
-    const newMessage = { type: 'user', text: 'Good', time: dateParser(Date.now())[1], isLoading: false };
-    setMessages([...messages, newMessage]);
+    const newMessage = { type: 'user', text: input, time: dateParser(Date.now())[1], isLoading: false };
+    setMessages(messages => [...messages, newMessage]);
+    setInput("");
+    callChat();
   }
-
-  // const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
-
-  function send() {
-    
+  
+  function callChat() {
+    chat(input).then(res => {
+      const newMessage = { type: 'bot', text: res || "Sorry can't fetch response right now", time: dateParser(Date.now())[1], isLoading: false };
+      setMessages(messages=>[...messages, newMessage]);
+    })
   }
-
 
   return (
     <main className='bg-[#25272B] h-full max-md:p-0 px-52 text-white'>
@@ -39,15 +42,15 @@ const Chatsection = () => {
                 <Chatcard icon='/vector (3).svg' txt='Calender for the whole month' />
             </div>
           </> : 
-          <ul className=' bg-slate-400 w-[792px] h-full'>
+          <ul className=' max-md:w-[90%] max-md:relative max-md:bottom-30 w-[792px] h-[586px] flex flex-col gap-y-8 relative bottom-10 overflow-y-scroll'>
             {messages.map((message, index) => {
-              return <li key={index}>{ message.text }</li>
+              return <li className={` w-fit ${message.type === 'bot' ? 'rounded-2xl p-6 bg-[#3A3C40]' :'rounded-xl py-5 px-4 border border-[#3A3C40] ml-auto'}`} key={index}>{ message.text }</li>
             })}
           </ul>
           }
         <div className='absolute bottom-16 flex'>
           <div className='flex p-4 bg-[#3B3D40] rounded-bl-xl rounded-tl-xl lg:w-[764px] max-md:w-[80vw] max-sm:w-'>
-            <input type="text" placeholder='Enter a prompt here' className='w-full outline-0' onKeyDown={(e) => {if(e.key === "Enter") sendMsg() } } />
+            <input type="text" placeholder='Enter a prompt here' value={input} onChange={e=>setInput(e.target.value)} className='w-full outline-0' onKeyDown={(e) => {if(e.key === "Enter") sendMsg() } } />
             <div className='flex gap-8 max-sm:gap-1'>
               <Image src="gallery.svg" alt="gallery" width={20} height={20} />
               <Image src="mic.svg" alt="mic" width={20} height={20} /></div>

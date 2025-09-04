@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState } from 'react'
-import { AppstoreOutlined, MailOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined, QuestionCircleOutlined, RobotOutlined,CommentOutlined, GroupOutlined,  CrownOutlined  } from '@ant-design/icons';
+import { AppstoreOutlined, MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined, RobotOutlined,CommentOutlined, CrownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Button, ConfigProvider, Menu, } from 'antd';
 import Image from 'next/image';
-import Upgrade from './upgrade';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
