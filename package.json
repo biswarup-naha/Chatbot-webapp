@@ -15,6 +15,7 @@
     "@biswarup598/date-parser": "^1.0.0",
     "@google/genai": "^1.16.0",
     "@heroicons/react": "^2.2.0",
+    "@microsoft/signalr": "^9.0.6",
     "antd": "^5.27.1",
     "clsx": "^2.1.1",
     "next": "15.5.2",

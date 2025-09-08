@@ -9,7 +9,7 @@ import { chat } from '../app/actions/server-actions';
 
 const Chatsection = () => {
   const [start, setStart] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([{ id: 1, type: 'bot', text: 'Hi! How can I help you?', time: dateParser(Date.now())[1], isLoading: false }]);
+  const [messages, setMessages] = useState<Message[]>([{ id: 1, type: 'bot', text: '', time: dateParser(Date.now())[1], isLoading: false }]);
   const [input, setInput] = useState<string>("");
 
   const sendMsg = () => {
@@ -19,12 +19,46 @@ const Chatsection = () => {
     setInput("");
     callChat();
   }
+
+  const [isProcessing]=useState(false);
   
   function callChat() {
-    chat(input).then(res => {
-      const newMessage = { type: 'bot', text: res || "Sorry can't fetch response right now", time: dateParser(Date.now())[1], isLoading: false };
-      setMessages(messages=>[...messages, newMessage]);
-    })
+    chat("68baee2d976a91c216039d4a", input, isProcessing => {
+      if (isProcessing) {
+        // Add "..." placeholder
+        const newMessage = {
+          type: 'bot',
+          text: "...",
+          time: dateParser(Date.now())[1],
+          isLoading: true
+        };
+        setMessages(messages => [...messages, newMessage]);
+      } else {
+        // Remove "..." placeholder (when processing ends)
+        setMessages(messages => {
+          const updated = [...messages];
+          // remove the last message if it's the "..." one
+          if (updated.length && updated[updated.length - 1].text === "...") {
+            updated.pop();
+          }
+          return updated;
+        });
+      }
+    }).then(res => {
+      // Insert final bot reply
+      const newMessage = {
+        type: 'bot',
+        text: res || "Sorry can't fetch response right now",
+        time: dateParser(Date.now())[1],
+        isLoading: false
+      };
+      setMessages(messages => [...messages, newMessage]);
+    });
+
+    // chat(input).then(res => {
+    //   const newMessage = { type: 'bot', text: res || "Sorry can't fetch response right now", time: dateParser(Date.now())[1], isLoading: false };
+    //   setMessages(messages => [...messages, newMessage]);
+    // });
   }
 
   return (
@@ -43,9 +77,12 @@ const Chatsection = () => {
             </div>
           </> : 
           <ul className=' max-md:w-[90%] max-md:relative max-md:bottom-30 w-[792px] h-[586px] flex flex-col gap-y-8 relative bottom-10 overflow-y-scroll'>
-            {messages.map((message, index) => {
-              return <li className={` w-fit ${message.type === 'bot' ? 'rounded-2xl p-6 bg-[#3A3C40]' :'rounded-xl py-5 px-4 border border-[#3A3C40] ml-auto'}`} key={index}>{ message.text }</li>
-            })}
+            {messages.map((message, index) => 
+              message.isLoading ? 
+                <li className="loader"></li>
+                 : (message.text !== "" && <li className={` w-fit ${message.type === 'bot' ? 'rounded-2xl p-6 bg-[#3A3C40]' : 'rounded-xl py-5 px-4 border border-[#3A3C40] ml-auto'}`} key={index}>{message.text}</li>)
+            )
+            }
           </ul>
           }
         <div className='absolute bottom-16 flex'>
