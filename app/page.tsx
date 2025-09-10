@@ -12,11 +12,6 @@ export default function Home() {
           <Chatsection />
         </div>
       </div>
-      {/* <div className="grid grid-cols-[256px_1fr_1fr] grid-rows-[128px_1fr_1fr] h-screen w-full">
-        <SideBar />
-        <Header />
-        <Chatsection />
-      </div> */}
     </>
   );
 }

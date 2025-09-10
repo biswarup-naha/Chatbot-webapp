@@ -7,7 +7,8 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "prepare": "husky"
   },
   "dependencies": {
     "@ant-design/icons": "^6.0.0",
@@ -17,7 +18,9 @@
     "@heroicons/react": "^2.2.0",
     "@microsoft/signalr": "^9.0.6",
     "antd": "^5.27.1",
+    "axios": "^1.11.0",
     "clsx": "^2.1.1",
+    "formik": "^2.4.6",
     "next": "15.5.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
@@ -28,7 +31,13 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
+    "prettier": "3.6.2",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+    "lint-staged": {
+      "**/*": "prettier --write --ignore-unknown"
+    }
 }

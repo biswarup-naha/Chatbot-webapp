@@ -25,7 +25,9 @@ const RegisterPage = () => {
           >
             <Form.Item
               name="username"
-              rules={[{ required: true, message: "Please input your Username!" }]}
+              rules={[
+                { required: true, message: "Please input your Username!" },
+              ]}
             >
               <Input
                 prefix={<UserOutlined className="site-form-item-icon" />}
@@ -34,7 +36,13 @@ const RegisterPage = () => {
             </Form.Item>
             <Form.Item
               name="email"
-              rules={[{ required: true, type: 'email', message: "Please input your Email!" }]}
+              rules={[
+                {
+                  required: true,
+                  type: "email",
+                  message: "Please input your Email!",
+                },
+              ]}
             >
               <Input
                 prefix={<MailOutlined className="site-form-item-icon" />}
@@ -43,7 +51,9 @@ const RegisterPage = () => {
             </Form.Item>
             <Form.Item
               name="password"
-              rules={[{ required: true, message: "Please input your Password!" }]}
+              rules={[
+                { required: true, message: "Please input your Password!" },
+              ]}
             >
               <Input
                 prefix={<LockOutlined className="site-form-item-icon" />}
@@ -53,19 +63,23 @@ const RegisterPage = () => {
             </Form.Item>
             <Form.Item
               name="confirm"
-              dependencies={['password']}
+              dependencies={["password"]}
               hasFeedback
               rules={[
                 {
                   required: true,
-                  message: 'Please confirm your password!',
+                  message: "Please confirm your password!",
                 },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
-                    if (!value || getFieldValue('password') === value) {
+                    if (!value || getFieldValue("password") === value) {
                       return Promise.resolve();
                     }
-                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                    return Promise.reject(
+                      new Error(
+                        "The two passwords that you entered do not match!",
+                      ),
+                    );
                   },
                 }),
               ]}

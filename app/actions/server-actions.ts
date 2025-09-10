@@ -13,38 +13,37 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 
 export async function chat(
-    userId: string,
-    input: string,
-    onProcessing?: (isProcessing: boolean) => void // ✅ callback
+  userId: string,
+  input: string,
+  onProcessing?: (isProcessing: boolean) => void, // ✅ callback
 ): Promise<string> {
-    return new Promise(async (resolve, reject) => {
-        const conversationId = `user:${userId}`;
+  return new Promise(async (resolve, reject) => {
+    const conversationId = `user:${userId}`;
 
-        const connection = new HubConnectionBuilder()
-            .withUrl(`https://localhost:7168/chathub?userId=${userId}`, { withCredentials: true })
-            .withAutomaticReconnect()
-            .configureLogging(LogLevel.Information)
-            .build();
+    const connection = new HubConnectionBuilder()
+      .withUrl(`https://localhost:7168/chathub?userId=${userId}`, {
+        withCredentials: true,
+      })
+      .withAutomaticReconnect()
+      .configureLogging(LogLevel.Information)
+      .build();
 
-        try {
-            await connection.start();
+    try {
+      await connection.start();
 
-            connection.on("ReceiveMessage", (msg) => {
-                resolve(msg.text || msg);
-                connection.stop();
-            });
+      connection.on("ReceiveMessage", (msg) => {
+        resolve(msg.text || "");
+        connection.stop();
+      });
 
-            connection.on("BotProcessing", (_convId, isProcessing) => {
-                if (onProcessing) onProcessing(isProcessing); // ✅ notify caller
-            });
+      connection.on("BotProcessing", (_convId, isProcessing) => {
+        if (onProcessing) onProcessing(isProcessing); // ✅ notify caller
+      });
 
-            await connection.invoke("SendUserMessage", conversationId, userId, input);
-        } catch (error) {
-            reject(error);
-            await connection.stop();
-        }
-    });
+      await connection.invoke("SendUserMessage", conversationId, userId, input);
+    } catch (error) {
+      reject(error);
+      await connection.stop();
+    }
+  });
 }
-
-
-

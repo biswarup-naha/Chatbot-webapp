@@ -25,33 +25,53 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 } */
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 
-.upgrade{
-  background: url('/upgrade.svg');
+.upgrade {
+  background: url("/upgrade.svg");
 }
 
-.sidebar{
+.sidebar {
   background: #3a3c40;
 }
 
 /* HTML: <div class="loader"></div> */
 .loader {
   width: 30px;
-  aspect-ratio: .75;
+  aspect-ratio: 0.75;
   --c: no-repeat linear-gradient(#a7a0f8 0 0);
-  background: 
-    var(--c) 0%   50%,
-    var(--c) 50%  50%,
+  background:
+    var(--c) 0% 50%,
+    var(--c) 50% 50%,
     var(--c) 100% 50%;
   background-size: 20% 50%;
   animation: l6 1s infinite linear;
 }
 @keyframes l6 {
-  20% {background-position: 0% 0%  ,50% 50% ,100% 50% }
-  40% {background-position: 0% 100%,50% 0%  ,100% 50% }
-  60% {background-position: 0% 50% ,50% 100%,100% 0%  }
-  80% {background-position: 0% 50% ,50% 50% ,100% 100%}
+  20% {
+    background-position:
+      0% 0%,
+      50% 50%,
+      100% 50%;
+  }
+  40% {
+    background-position:
+      0% 100%,
+      50% 0%,
+      100% 50%;
+  }
+  60% {
+    background-position:
+      0% 50%,
+      50% 100%,
+      100% 0%;
+  }
+  80% {
+    background-position:
+      0% 50%,
+      50% 50%,
+      100% 100%;
+  }
 }
