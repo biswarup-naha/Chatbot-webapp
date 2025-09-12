@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { AuthProvider } from "./context/auth";
+import  AuthGuard from "./authguard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +17,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "PlatyChat",
-  description: "A live chatbot that speaks with your heart.",
+  description: "A live chatbot that speaks with your heart",
 };
+
 
 export default function RootLayout({
   children,
@@ -28,7 +31,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AntdRegistry>{children}</AntdRegistry>
+        <AntdRegistry>
+          <AuthProvider>
+            <AuthGuard>
+              {children}
+            </AuthGuard>
+          </AuthProvider>
+        </AntdRegistry>
       </body>
     </html>
   );

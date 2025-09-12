@@ -11,8 +11,13 @@ import {
 } from "@ant-design/icons";
 import Image from "next/image";
 import Link from "next/link";
+import { useAuth } from "@/app/context/auth";
 
-const items: MenuProps["items"] = [
+
+const Header = () => {
+  const { logout } = useAuth();
+
+  const items: MenuProps["items"] = [
   {
     label: (
       <Link href="/profile/edit" rel="noopener noreferrer">
@@ -35,7 +40,7 @@ const items: MenuProps["items"] = [
   },
   {
     label: (
-      <Link href="/" rel="noopener noreferrer">
+      <Link href="/" rel="noopener noreferrer" onClick={logout}>
         <LogoutOutlined /> Log out
       </Link>
     ),
@@ -45,7 +50,7 @@ const items: MenuProps["items"] = [
   },
 ];
 
-const Header = () => {
+  
   return (
     <ConfigProvider
       theme={{

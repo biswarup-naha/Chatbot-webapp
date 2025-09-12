@@ -10,8 +10,19 @@ type Message = {
   isLoading: boolean;
 };
 
+interface IAuthContext {
+  user: User | undefined,
+  isAuthenticated: boolean
+  login: (email:string, password:string)=>void,
+  register?: () => void,
+  logout?: () => void,
+  
+}
+
 type User = {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
+  chats?: []
 };
