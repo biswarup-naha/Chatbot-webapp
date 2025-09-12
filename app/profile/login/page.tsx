@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useAuth } from "@/app/context/auth";
 import { Field, Form, Formik, FormikHelpers, FormikValues } from "formik";
@@ -8,7 +8,7 @@ import React, { useEffect } from "react";
 import { notification } from "antd";
 import { useRouter } from "next/navigation";
 
-const Login:React.FC = () => {
+const Login: React.FC = () => {
   const { login } = useAuth();
 
   return (
@@ -24,7 +24,9 @@ const Login:React.FC = () => {
             initialValues={{ email: "", password: "" }}
             onSubmit={(
               { email, password }: { email: string; password: string },
-              { setSubmitting }: FormikHelpers<{ email: string; password: string }>,
+              {
+                setSubmitting,
+              }: FormikHelpers<{ email: string; password: string }>,
             ) => {
               try {
                 login(email, password);

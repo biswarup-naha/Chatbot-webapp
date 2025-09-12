@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import Chatsection from "@/ui/chatsection";
@@ -14,7 +14,7 @@ const page = () => {
         <Chatsection />
       </div>
     </div>
-  )
+  );
 };
 
 export default page;

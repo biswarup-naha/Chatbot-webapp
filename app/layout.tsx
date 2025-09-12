@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { AuthProvider } from "./context/auth";
-import  AuthGuard from "./authguard";
+import AuthGuard from "./authguard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,7 +20,6 @@ export const metadata: Metadata = {
   description: "A live chatbot that speaks with your heart",
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,9 +32,7 @@ export default function RootLayout({
       >
         <AntdRegistry>
           <AuthProvider>
-            <AuthGuard>
-              {children}
-            </AuthGuard>
+            <AuthGuard>{children}</AuthGuard>
           </AuthProvider>
         </AntdRegistry>
       </body>

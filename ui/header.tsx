@@ -13,44 +13,42 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/app/context/auth";
 
-
 const Header = () => {
   const { logout } = useAuth();
 
   const items: MenuProps["items"] = [
-  {
-    label: (
-      <Link href="/profile/edit" rel="noopener noreferrer">
-        <EditOutlined /> Edit profile
-      </Link>
-    ),
-    key: "0",
-    // className: "bg-[#3A3C40]",
-    style: { color: "white" },
-  },
-  {
-    label: (
-      <Link href="/profile/change-password" rel="noopener noreferrer">
-        <ReconciliationOutlined /> Change password
-      </Link>
-    ),
-    key: "1",
-    // className: "bg-[#3A3C40]",
-    style: { color: "white" },
-  },
-  {
-    label: (
-      <Link href="/" rel="noopener noreferrer" onClick={logout}>
-        <LogoutOutlined /> Log out
-      </Link>
-    ),
-    key: "3",
-    // className: "bg-[#3A3C40]",
-    style: { color: "white" },
-  },
-];
+    {
+      label: (
+        <Link href="/profile/edit" rel="noopener noreferrer">
+          <EditOutlined /> Edit profile
+        </Link>
+      ),
+      key: "0",
+      // className: "bg-[#3A3C40]",
+      style: { color: "white" },
+    },
+    {
+      label: (
+        <Link href="/profile/change-password" rel="noopener noreferrer">
+          <ReconciliationOutlined /> Change password
+        </Link>
+      ),
+      key: "1",
+      // className: "bg-[#3A3C40]",
+      style: { color: "white" },
+    },
+    {
+      label: (
+        <Link href="/" rel="noopener noreferrer" onClick={logout}>
+          <LogoutOutlined /> Log out
+        </Link>
+      ),
+      key: "3",
+      // className: "bg-[#3A3C40]",
+      style: { color: "white" },
+    },
+  ];
 
-  
   return (
     <ConfigProvider
       theme={{

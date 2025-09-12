@@ -11,12 +11,11 @@ type Message = {
 };
 
 interface IAuthContext {
-  user: User | undefined,
-  isAuthenticated: boolean
-  login: (email:string, password:string)=>void,
-  register?: () => void,
-  logout?: () => void,
-  
+  user: User | undefined;
+  isAuthenticated: boolean;
+  login: (email: string, password: string) => void;
+  register?: () => void;
+  logout?: () => void;
 }
 
 type User = {
@@ -24,5 +23,5 @@ type User = {
   lastName: string;
   email: string;
   password: string;
-  chats?: []
+  chats?: [];
 };
